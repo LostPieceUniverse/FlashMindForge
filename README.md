@@ -4,7 +4,7 @@ Welcome to the FlashMindForge Flashcard Program! This ongoing project aims to pr
 
 ## Disclamer
 
-I am a Rust noob and have no idea what I am doing.:frog:
+I am a Rust noob and have no idea what I am doing. :frog:
 
 ## Overview
 
