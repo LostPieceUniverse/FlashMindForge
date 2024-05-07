@@ -5,7 +5,7 @@ Welcome to the FlashMindForge Flashcard Program! This ongoing project aims to pr
 ## Disclamer
 
 I am a Rust noob and have no idea what I am doing. :frog: <br>
-This will be worked on sporadicaly in my freetime. That means no frequent commits. I dont even know if this will ever be finished.
+This will be worked on sporadically in my freetime. That means no frequent commits. I dont even know if this will ever be finished.
 
 ## Overview
 
