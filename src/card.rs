@@ -41,6 +41,18 @@ impl Clone for Card {
     }
 }
 
+impl Card { 
+    pub fn new(card_type: CardType, front: String, back: String, card_no: i32) -> Card { 
+        return Card {
+            card_type,
+            front,
+            back,
+            card_no
+        };
+    }
+}
+
+
 //-----------functions---------
 pub fn add_new_cards(){
     let mut deck_name = String::new();

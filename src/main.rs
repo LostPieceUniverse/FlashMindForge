@@ -1,3 +1,4 @@
+#![allow(non_snake_case)]
 use std::io::stdin;
 
 use card::Card;
@@ -7,17 +8,6 @@ use crate::deck::*;
 //modules
 mod deck;
 mod card;
-
-impl Card { 
-    fn new(card_type: CardType, front: String, back: String, card_no: i32) -> Card { 
-        return Card {
-            card_type,
-            front,
-            back,
-            card_no
-        };
-    }
-}
 
 //------------------------------------------------------functions----------------------------------------------
 fn home() -> String{
