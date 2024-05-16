@@ -1,5 +1,9 @@
 #![allow(non_snake_case)]
 use std::io::stdin;
+use std::fs;
+use std::fs::File;
+use std::io::prelude::*;
+use dirs;
 
 use card::Card;
 use crate::card::*;
@@ -9,7 +13,82 @@ use crate::deck::*;
 mod deck;
 mod card;
 
+//------------------------------------------------------variables---------------------------------------------
+const CONFIG_FILE_NAME: &str = "config.json";
+static mut DECK_PATH: Option<String> = None;
+
 //------------------------------------------------------functions----------------------------------------------
+fn load_config(){
+    //get the home directory
+    let home_dir = match dirs::home_dir() {
+        Some(path) => path,
+        None => {
+            eprintln!("Failed to get home directory");
+            return;
+        }
+    };
+
+    let config_file_path = home_dir.join(".config/flashmindforge").join(CONFIG_FILE_NAME);
+
+    //if the directory exists
+    if let Err(err) = fs::create_dir_all(&config_file_path.parent().unwrap()) {
+        eprintln!("Failed to create directory: {}", err);
+        return;
+    }
+
+    //check if the config file exists
+    if !config_file_path.exists() {
+        //create config file and write default configuration
+        let default_config = json::object! {
+            "deck_path": "~/someDirectory/"
+        };
+        let config_string = default_config.pretty(2);
+        if let Err(err) = File::create(&config_file_path)
+            .and_then(|mut file| file.write_all(config_string.as_bytes()))
+        {
+            eprintln!("Failed to create config file: {}", err);
+            return;
+        }
+    } 
+    else {
+        //read file and extract deck_path
+        let mut file = match File::open(&config_file_path) {
+            Ok(file) => file,
+            Err(err) => {
+                eprintln!("Failed to open config file: {}", err);
+                return;
+            }
+        };
+        let mut config_content = String::new();
+        if let Err(err) = file.read_to_string(&mut config_content) {
+            eprintln!("Failed to read config file: {}", err);
+            return;
+        }
+        let config_json: serde_json::Value =
+            match serde_json::from_str(&config_content) {
+                Ok(json) => json,
+                Err(err) => {
+                    eprintln!("Failed to parse config JSON: {}", err);
+                    return;
+                }
+            };
+        let deck_path = config_json["deck_path"].as_str().unwrap_or_default();
+
+        unsafe {
+            DECK_PATH = Some(deck_path.to_string());
+            if let Some(ref deck_path) = DECK_PATH {
+                println!("{:?}", deck_path);
+            } 
+            else {
+                println!("DECK_PATH is None");
+            }
+        }
+    }
+}
+
+
+
+
 fn home() -> String{
     println!("creat deck (1)");
     println!("Study deck (2)");
@@ -164,8 +243,7 @@ fn study(){
 
 //-----------------------------------------------------main------------------------------------------------
 fn main() {
-    // let mut == var 
-    // let == const
+    load_config();
     loop{
         let input = home();//get return of function home()
     
