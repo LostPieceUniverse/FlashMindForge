@@ -16,11 +16,11 @@ The current version is a console application, but future updates may include a T
 
 - Create, edit, and delete flashcards.
 - View flashcards in a randomized or sequential order.
+- Has a config to define the deck directory
 - more incomming...
 
 ## Plans 
  Those plans are in no order and just ideas I want to implement in the future.
 
-- Config JSON to set path of decks ect. 
-- Making it a TUI application (certain attributes would be defined in the config)
+- Making it a TUI application (certaing attributes would be defined in the config)
 - Get the code to a point where its actually good and efficient...
