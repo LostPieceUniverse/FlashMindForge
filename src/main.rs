@@ -1,7 +1,7 @@
 use std::io::stdin;
 
 use card::Card;
-use crate::card::CardType;
+use crate::card::*;
 use crate::deck::*;
 
 //modules
@@ -19,8 +19,6 @@ impl Card {
     }
 }
 
-//-------------------------------------------serialize--------------------------------------
-
 //------------------------------------------------------functions----------------------------------------------
 fn home() -> String{
     println!("creat deck (1)");
@@ -32,19 +30,6 @@ fn home() -> String{
 
     stdin().read_line(&mut input).unwrap();
     return input;
-    
-}
-fn add_new_cards(){
-    let mut deck_name = String::new();
-
-    println!("Which deck would you like to add cards to? ");
-    stdin().read_line(&mut deck_name).unwrap();
-    
-    let vec_of_cards: Vec<Card> = get_deck(&deck_name);
-
-    for item in vec_of_cards{
-        println!("{}", item.front);
-    }
     
 }
 

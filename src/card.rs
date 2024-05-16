@@ -1,4 +1,7 @@
 use serde::{Serialize, Deserialize};
+use std::io::stdin;
+
+use crate::get_deck;
 
 //-----------card struct---------
 #[derive(Serialize, Deserialize)]
@@ -37,3 +40,19 @@ impl Clone for Card {
         }
     }
 }
+
+//-----------functions---------
+pub fn add_new_cards(){
+    let mut deck_name = String::new();
+
+    println!("Which deck would you like to add cards to? ");
+    stdin().read_line(&mut deck_name).unwrap();
+    
+    let vec_of_cards: Vec<Card> = get_deck(&deck_name);
+
+    for item in vec_of_cards{
+        println!("{}", item.front);
+    }
+    
+}
+
