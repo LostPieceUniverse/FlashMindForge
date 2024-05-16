@@ -2,6 +2,12 @@
 
 Welcome to the FlashMindForge Flashcard Program! This ongoing project aims to provide a simple yet effective way to study using flashcards, right from your console.
 
+### Configuration and Storage
+
+FlashMindForge utilizes a configuration file to define certain attributes, including the location of decks and cards.<br>
+By default, the configuration file is located at `[home_dir]/.config/flashmindforge`. Within the configuration file, you can specify the directory<br>
+where decks are stored, which defaults to `[home_dir]/.local/FlashMindForge/`.
+
 ## Disclamer
 
 I am a Rust noob and have no idea what I am doing. :frog: <br>
