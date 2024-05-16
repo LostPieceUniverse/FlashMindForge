@@ -4,9 +4,11 @@ Welcome to the FlashMindForge Flashcard Program! This ongoing project aims to pr
 
 ### Configuration and Storage
 
-FlashMindForge utilizes a configuration file to define certain attributes, including the location of decks and cards.<br>
-By default, the configuration file is located at `[home_dir]/.config/flashmindforge`. Within the configuration file, you can specify the directory<br>
-where decks are stored, which defaults to `[home_dir]/.local/FlashMindForge/`.
+FlashMindForge utilizes a configuration file to define certain attributes, including the location of decks and cards.
+By default, the configuration file is located at:<br>
+`[home_dir]/.config/flashmindforge`
+Within the configuration file, you can specify the directory where decks are stored, which defaults to:<br>
+`[home_dir]/.local/FlashMindForge/`
 
 ## Disclamer
 
