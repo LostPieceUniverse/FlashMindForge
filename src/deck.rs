@@ -7,6 +7,7 @@ use std::io::Write;
 
 use crate::Card;
 use crate::card::CardType;
+use crate::DECK_PATH;
 
 #[derive(Serialize, Deserialize)]
 //--------deck struct--------
@@ -43,7 +44,6 @@ pub fn list_decks(){
 }
 
 pub fn add_new_deck(){
-    //vector.vec_of_cards = Vec::new();//new vector(list)
     
     let mut vector: Vec<Card> = Vec::new();
     let mut numb_input = String::new();
@@ -80,20 +80,22 @@ pub fn add_new_deck(){
 
 //--------deserialize serialize--------
 pub fn deserialize_deck(deck_name: &str) -> Result<Deck, Box<dyn Error>>{
-
-    let path = "/home/haru/dev/rust/myownanki/";
-    let mut filename = deck_name.trim().to_string();
+ let mut filename = deck_name.trim().to_string();
     filename = format!("{}.json", filename);
 
-    let complete_path = format!("{}{}",path, filename);
+    let complete_path: String = unsafe {
+        let path_ptr = DECK_PATH.as_ref().expect("DECK_PATH is None").as_ptr();
+        let path = std::ptr::read(path_ptr);
+        format!("{}{}", path, filename)
+    };
+    let contents: String = fs::read_to_string(&complete_path).expect("Couldn't read file");
 
-    let contents: String = fs::read_to_string(complete_path).expect("Should have been able to read the file");
-
-    let decks: Deck  = serde_json::from_str(&contents).unwrap();
+    let decks: Deck = serde_json::from_str(&contents).unwrap();
     Ok(decks)
 }
 
 fn serialize_content(vector_contents: Vec<Card>){
+
     let mut deck_name = String::new();
     println!("Deck name: ");
     stdin().read_line(&mut deck_name).unwrap();
@@ -102,6 +104,11 @@ fn serialize_content(vector_contents: Vec<Card>){
 
     let filename = format!("{}.json", deck_name);
 
+    let complete_path: String = unsafe {
+        let path_ptr = DECK_PATH.as_ref().expect("DECK_PATH is None").as_ptr();
+        let path = std::ptr::read(path_ptr);
+        format!("{}{}", path, filename)
+    };
     let contents = Deck {
         deck_name: deck_name.to_string(),
         vec_of_cards: vector_contents,
@@ -112,7 +119,7 @@ fn serialize_content(vector_contents: Vec<Card>){
         .write(true)
         .append(true)
         .create(true)
-        .open(filename)
+        .open(complete_path)
         .unwrap();
 
     writeln!(file,"{}", content).unwrap();

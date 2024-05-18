@@ -40,7 +40,7 @@ fn load_config(){
     if !config_file_path.exists() {
         //create config file and write default configuration
         let default_config = json::object! {
-            "deck_path": "~/someDirectory/"
+            "deck_path": "~/.local/share/FlashMindForge/"
         };
         let config_string = default_config.pretty(2);
         if let Err(err) = File::create(&config_file_path)
